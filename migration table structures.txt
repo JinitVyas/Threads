@@ -1,0 +1,66 @@
+Schema::create('users', function (Blueprint $table) {
+            $table->id('uid');
+            $table->string('uname',10);
+            $table->string('fname',20);
+            $table->string('lname',20);
+            $table->string('email',50);
+            $table->date('dob');
+            $table->string('password',60);
+            $table->enum('gender', ['M', 'F', 'O']);
+            $table->integer('followers');
+            $table->integer('followings');
+            $table->timestamp('reg_date')->default(now());
+        });
+
+
+Schema::create('log', function (Blueprint $table) {
+            $table->id('lid');
+            $table->unsignedBigInteger('uid');
+            $table->timestamp('login_time');
+            $table->timestamp('logout_time')->nullable();
+
+            // $table->foreign('uid')->references('uid')->on('users');
+        });
+
+
+Schema::create('vote', function (Blueprint $table) {
+            $table->id('vid');
+            $table->unsignedBigInteger('tid');
+            $table->unsignedBigInteger('uid');
+            $table->enum('vtype',['Like','Dislike']);
+
+            // $table->foreign('uid')->references('uid')->on('users');
+        });
+
+
+ Schema::create('comment', function (Blueprint $table) {
+            $table->id('cid');
+            $table->unsignedBigInteger('uid');
+            $table->unsignedBigInteger('tid');
+            $table->string('ctext',400);
+            $table->timestamp('cdatetime')->default(now());
+
+            // $table->foreign('uid')->references('uid')->on('users');
+            // $table->foreign('tid')->references('tid')->on('thread');
+        });
+
+
+Schema::create('thread', function (Blueprint $table) {
+            $table->id('tid');
+            $table->string('ttext')->nullable();
+            $table->string('tmediapath')->nullable();
+            $table->unsignedBigInteger('uid');
+
+            // $table->foreign('uid')->references('uid')->on('users');
+        });
+
+
+Schema::create('connect', function (Blueprint $table) {
+            $table->id('conn_id');
+            $table->unsignedBigInteger('follower_id');
+            $table->unsignedBigInteger('following_id');
+            $table->timestamp('follow_datetime');
+            
+            // $table->foreign('follower_id')->references('uid')->on('users');
+            // $table->foreign('following_id')->references('uid')->on('users');
+        });
