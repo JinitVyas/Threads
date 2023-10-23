@@ -52,7 +52,7 @@
                                     class="visually-hidden">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="{{url('/Threads/'.session('uname'))}}">MyThreads</a>
                         </li>
                     </ul>
                     <form class="d-flex my-2 my-lg-0">

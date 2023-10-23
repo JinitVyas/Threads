@@ -13,9 +13,7 @@
 
                 if (!$Threads->isEmpty()) {
                     foreach ($Threads as $Thread) {
-                        echo "<div class='text-light'>";
-                        echo $voteCount = Vote::where('tid', $Thread->tid)->count() ?? 0;
-                        echo "</div>";
+                        $voteCount = Vote::where('tid', $Thread->tid)->count() ?? 0;
                         echo "
                         <div class='card bg-dark my-3 mx-2 border-light border-start-0 w-100' id='threadList'>";
                             echo "

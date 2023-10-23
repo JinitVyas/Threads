@@ -39,15 +39,20 @@
                             $vote = Vote::where('uid',session('uid'))->where('tid',$Thread->tid)->get();
                             if ($vote->isNotEmpty()) {
                                 echo '<div style="width:fit-content;">
-                                        <a href="/Like/'.$Thread->tid.'" class="d-flex flex-column align-items-center text-light h6">
+                                        <a href="/Like/'.$Thread->tid.'" class="flex-center flex-column text-light text-decoration-none">
                                             <i class="bi bi-heart-fill text-info mx-2"></i>
-                                            '.$voteCount.'
+                                            <p class="h6 px-3">'.$voteCount.'</p>
                                             </a>
                                     </div>';
                             }
                             else {
-                                echo '<a href="/Like/'.$Thread->tid.'" class="d-flex">
-                                    <i class="bi bi-heart mx-2"></i></a>';
+                                echo '<div style="width:fit-content;">
+                                        <a href="/Like/'.$Thread->tid.'" class="flex-center flex-column text-light text-decoration-none">
+                                            <i class="bi bi-heart text-info mx-2"></i>
+                                            <p class="h6 px-3">'.$voteCount.'</p>
+                                        </a>
+                                    </div>
+                                    ';
                             }
                             
                             echo '<a href="/Comment/'.$Thread->tid.'">

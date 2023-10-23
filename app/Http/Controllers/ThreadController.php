@@ -77,8 +77,6 @@ class ThreadController extends Controller
         return view('Mythreads', [ 'Threads' => $Threads,'Uname' => $Uname]);
     }
 
-
-
     public function voteThread(Request $r,$tid){
 
         $existingLike = Vote::where('uid',session('uid'))->where('tid',$tid)->first();
@@ -112,6 +110,9 @@ class ThreadController extends Controller
     }
 
     public function commentThread(Request $r, $id){
+        // echo "$id";
+        $thread = Thread::where('tid',$id)->first();
+        return view('/Comments',['Thread'=>$thread]);
     }
 
     /**
