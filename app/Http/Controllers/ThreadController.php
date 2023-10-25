@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\thread;
 use App\Models\users;
 use App\Models\vote;
+use App\Models\comment;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Collection;
@@ -77,8 +78,6 @@ class ThreadController extends Controller
         return view('Mythreads', [ 'Threads' => $Threads,'Uname' => $Uname]);
     }
 
-
-
     public function voteThread(Request $r,$tid){
 
         $existingLike = Vote::where('uid',session('uid'))->where('tid',$tid)->first();
@@ -112,6 +111,31 @@ class ThreadController extends Controller
     }
 
     public function commentThread(Request $r, $id){
+        // echo "$id";
+        $thread = Thread::where('tid',$id)->first();
+        return view('/Comments',['Thread'=>$thread]);
+    }
+
+    public function addComment(Request $r)
+    {
+        $validate = $r->validate(
+            [
+                'NewComment' => 'required',
+            ]
+        );
+
+        $ThreadId = $r->input('tid');
+        $Comment = $r->input('NewComment');
+        $uid = session('uid');
+
+        $CommentObj = new Comment();
+
+        $CommentObj->tid = $ThreadId;
+        $CommentObj->ctext = $Comment;
+        $CommentObj->uid = $uid;
+
+        $CommentObj->save();
+        return redirect('/Comment/'.$ThreadId);
     }
 
     /**
