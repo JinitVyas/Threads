@@ -9,6 +9,6 @@ class comment extends Model
 {
     protected $table = 'comment';
     protected $primaryKey = 'cid';
-    public $timeStamps = false;
+    public $timestamps = false;
     use HasFactory;
 }

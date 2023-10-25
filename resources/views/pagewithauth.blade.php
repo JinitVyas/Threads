@@ -24,7 +24,7 @@
                         <div class='card bg-dark my-3 mx-2 border-light border-start-0 w-100' id='threadList'>";
                             
                             echo "
-                            <h4 class='card-title'>@". users::where('uid',$Thread->uid)->get('uname')[0]->uname ."</h4>
+                            <h4 class='card-title'> <a href='/Profile/".$Thread->uid."' class='text-light text-decoration-none'> @". users::where('uid',$Thread->uid)->get('uname')[0]->uname ."</a></h4>
                             <div class='card-body'>
                                 <p class='card-text'>". $Thread->ttext ."</p>
                             </div>
@@ -36,29 +36,30 @@
                         <div class="actions px-3 h5 d-flex">
                             <hr>
                             @php
-                            $vote = Vote::where('uid',session('uid'))->where('tid',$Thread->tid)->get();
-                            if ($vote->isNotEmpty()) {
-                                echo '<div style="width:fit-content;">
-                                        <a href="/Like/'.$Thread->tid.'" class="flex-center flex-column text-light text-decoration-none">
-                                            <i class="bi bi-heart-fill text-info mx-2"></i>
-                                            <p class="h6 px-3">'.$voteCount.'</p>
-                                            </a>
-                                    </div>';
-                            }
-                            else {
-                                echo '<div style="width:fit-content;">
-                                        <a href="/Like/'.$Thread->tid.'" class="flex-center flex-column text-light text-decoration-none">
-                                            <i class="bi bi-heart text-info mx-2"></i>
-                                            <p class="h6 px-3">'.$voteCount.'</p>
-                                        </a>
-                                    </div>
-                                    ';
-                            }
-                            
-                            echo '<a href="/Comment/'.$Thread->tid.'">
-                                    <i class="bi bi-chat-left-dots mx-2"></i>
-                                </a>';
-                            
+                                $vote = Vote::where('uid',session('uid'))->where('tid',$Thread->tid)->get();
+                                if ($vote->isNotEmpty()) {
+                                    echo '<div style="width:fit-content;">
+                                            <a href="/Like/'.$Thread->tid.'" class="flex-center flex-column text-light text-decoration-none">
+                                                <i class="bi bi-heart-fill text-info mx-2"></i>
+                                                <p class="h6 px-3">'.$voteCount.'</p>
+                                                </a>
+                                        </div>';
+                                }
+                                else {
+                                    echo '<div style="width:fit-content;">
+                                            <a href="/Like/'.$Thread->tid.'" class="flex-center flex-column text-light text-decoration-none">
+                                                <i class="bi bi-heart text-info mx-2"></i>
+                                                <p class="h6 px-3">'.$voteCount.'</p>
+                                                </a>
+                                                </div>
+                                                ';
+                                }
+                                            
+                                echo '<a href="/Comment/'.$Thread->tid.'" class="flex-center flex-column text-light text-decoration-none">
+                                            <i class="bi bi-chat-left-dots mx-2"></i>
+                                            <p class="h6 px-3">'.$commentCount.'</p>
+                                    </a>';
+                                
                             @endphp
                             
                             <i class="bi bi-message-cloud mx-2"></i>

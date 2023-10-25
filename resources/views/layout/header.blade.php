@@ -51,9 +51,16 @@
                             <a class="nav-link active" href="/" aria-current="page">Home <span
                                     class="visually-hidden">(current)</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('/Threads/'.session('uname'))}}">MyThreads</a>
-                        </li>
+                        @php
+                            if (session('uid'))
+                            {
+                                @endphp
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{url('/Threads/'.session('uname'))}}">MyThreads</a>
+                                    </li>
+                                @php
+                            }
+                        @endphp
                     </ul>
                     <form class="d-flex my-2 my-lg-0">
                         <input class="form-control me-sm-2" type="text" placeholder="Search">
