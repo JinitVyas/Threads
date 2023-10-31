@@ -68,7 +68,7 @@
                                                 echo '<a href="/Unfollow/' . $uid . '" class="btn btn-secondary border-light text-light w-75">Unollow</a>';
                                             }
                                         } else {
-                                            echo '<a href="/Edit/' . $uid . '" class="btn border-primary btn-dark w-7 text-light w-75">Edit profile</a>';
+                                            echo '<a href="/Edit" class="btn border-primary btn-dark w-7 text-light w-75">Edit profile</a>';
                                         }
                                     @endphp
                                 </div>

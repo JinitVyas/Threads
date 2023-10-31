@@ -31,6 +31,7 @@ Route::get('/MyThreads', [ThreadController::class ,'MyThreads'])->name('MyThread
 Route::get('/addThread', function () { return view('ThreadForm'); })->name('ThreadForm')->middleware('checkLoginOfThredUser');
 Route::get('/logout', [usersController::class,'logout'])->name('regForm')->middleware('checkLoginOfThredUser');
 Route::get('/Profile/{id}',[usersController::class, 'getProfile']);
+Route::get('/Edit',[usersController::class, 'editProfile'])->middleware('checkLoginOfThredUser');
 Route::get('/Follow/{id}',[usersController::class, 'followProfile'])->middleware('checkLoginOfThredUser');
 Route::get('/Unfollow/{id}',[usersController::class, 'unfollowProfile'])->middleware('checkLoginOfThredUser');
 Route::get('/Like/{id}',[ThreadController::class, 'voteThread'])->middleware('checkLoginOfThredUser');
@@ -43,3 +44,4 @@ Route::post('/reg', [usersController::class, 'signup'])->name('reg');
 
 Route::post('/addThread', [ThreadController::class, 'create'])->name('startThread')->middleware('checkLoginOfThredUser');
 Route::post('/addComment', [ThreadController::class, 'addComment'])->name('addComment')->middleware('checkLoginOfThredUser');
+Route::post('/Edit', [usersController::class, 'updateProfile'])->name('editProfile')->middleware('checkLoginOfThredUser');

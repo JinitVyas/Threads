@@ -223,4 +223,85 @@ class usersController extends Controller
         // wrap up
         return redirect('/Profile/'.$id);
     }
+
+    function editProfile(){
+
+        $userData = Users::where('uid',session('uid'))->first();
+        if ($userData) {
+            // Access the user's attributes
+            $uid = $userData->uid;
+            $uname = $userData->uname;
+            $fname = $userData->fname;
+            $lname = $userData->lname;
+            $about = $userData->about;
+            $dob = $userData->dob;
+            $gender = $userData->gender;
+
+                // Compact the user data and pass it to the view
+            return view('/EditProfile', compact('uid','uname','fname', 'lname', 'about', 'dob', 'gender'));
+        }
+    }
+
+    function updateProfile(Request $r){
+        
+        $rules = [
+            'uname' => [
+                'required',
+                'string',
+                'max:10',
+                Rule::unique('users')->where(function ($query) {
+                    return $query->where('uname', '!=', session('uname'));
+                }),
+            ],
+            'fname'=>'required|string|max:20',
+            'lname'=>'required|string|max:20',
+            'bio'=>'nullable|string|max:200',
+            'dob'=>['required',
+                    'date',
+                    function ($attribute, $value, $fail) {
+                        $dob = \Carbon\Carbon::parse($value);
+                        $age = $dob->age;
+            
+                        if ($age < 18) {
+                            $fail('You must be at least 18 years old.');
+                        }
+                    },
+                ],
+            'gender'=>['required', Rule::in( ['M', 'F', 'O'] ) ],
+        ];
+
+        $err_msg = [
+            'uname.required'=>'Username can\' be blank',
+            'fname.required'=>'First name can\' be blank',
+            'lname.required'=>'Username can\' be blank',
+
+            'uname.max'=>'Username can\'t be greater than 10 characters',
+            'dob.age_18'=>'You must be atleast 18 years old.',
+            'uname.unique'=>'username already taken, try anotherone',
+        ];
+
+        $validatedData = $r->validate($rules,$err_msg);
+
+
+        echo "<br>".$uname = $r->input('uname');
+        echo "<br>".$gender = $r->input('gender');
+        echo "<br>".$fname = $r->input('fname');
+        echo "<br>".$lname = $r->input('lname');
+        echo "<br>".$dob = $r->input('dob');
+        echo "<br>".$bio = $r->input('bio');
+
+        $CurrentUser = Users::where('uid',session('uid'))->first();
+
+        $CurrentUser->uname = $uname;
+        $CurrentUser->fname = $fname;
+        $CurrentUser->lname = $lname;
+        $CurrentUser->gender = $gender;
+        $CurrentUser->dob = $dob;
+        $CurrentUser->about = $bio;
+
+        $CurrentUser->save();
+        session(['uname'=>$uname]);
+        return redirect('/Profile/'.session('uid'));
+    }
+    
 }
