@@ -177,6 +177,11 @@ class usersController extends Controller
     }
 
     function followProfile(Request $r, $id){
+
+        if (session('uid') == $id) {
+            return back();
+        }
+
         // Create object for new connection 
         $connObj = new Connect();
 

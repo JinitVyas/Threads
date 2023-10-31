@@ -48,7 +48,7 @@
                 <div class="collapse navbar-collapse d-flex align-items-center justify-content-center flex-wrap" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/" aria-current="page">Home <span
+                            <a class="nav-link" href="/" aria-current="page">Home <span
                                     class="visually-hidden">(current)</span></a>
                         </li>
                         @php
