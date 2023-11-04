@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\usersController;
 use App\Http\Controllers\ThreadController;
+use App\Http\Controllers\SearchController;
+
 use App\Http\Middleware;
 
 /*
@@ -37,6 +39,7 @@ Route::get('/Unfollow/{id}',[usersController::class, 'unfollowProfile'])->middle
 Route::get('/Like/{id}',[ThreadController::class, 'voteThread'])->middleware('checkLoginOfThredUser');
 Route::get('/Comment/{id}',[ThreadController::class, 'commentThread'])->middleware('checkLoginOfThredUser');
 Route::get('/Threads/{uname}',[ThreadController::class, 'showThread']);
+Route::get('/search', [SearchController::class, 'getSearchResults'])->name('search');
 
 // POSTs
 Route::post('/login', [usersController::class, 'login'])->name('login');

@@ -48,8 +48,8 @@
                 <div class="collapse navbar-collapse d-flex align-items-center justify-content-center flex-wrap" id="collapsibleNavId">
                     <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="/" aria-current="page">Home <span
-                                    class="visually-hidden">(current)</span></a>
+                            <a class="nav-link" href="/" aria-current="page">Home
+                                <span class="visually-hidden">(current)</span></a>
                         </li>
                         @php
                             if (session('uid'))
@@ -62,8 +62,8 @@
                             }
                         @endphp
                     </ul>
-                    <form class="d-flex my-2 my-lg-0">
-                        <input class="form-control me-sm-2" type="text" placeholder="Search">
+                    <form class="d-flex my-2 my-lg-0" method="GET" action="search">
+                        <input class="form-control me-sm-2" type="text" name="searchText" placeholder="Search" value="<?php echo isset($SearchText) ? $SearchText : ""; ?>">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
 
